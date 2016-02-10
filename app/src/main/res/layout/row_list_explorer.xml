@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/windowBackground"
+    style="@style/lsRelLayout">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:fontFamily="sans-serif"
+        android:drawableLeft="@drawable/bullet"
+        style="@style/lsRelLayoutLblFileName"
+        android:id="@+id/lblFileName" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:fontFamily="sans-serif"
+        style="@style/lsRelLayoutLblFilePath"
+        android:id="@+id/lblFilePath"
+        android:layout_below="@+id/lblFileName" />
+
+</RelativeLayout>

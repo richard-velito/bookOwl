@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="@string/read_preferences">
+
+        <de.mrapp.android.preference.NumberPickerPreference
+            android:defaultValue="20"
+            custom:min="12"
+            android:max="35"
+            custom:useInputMethod="true"
+            custom:wrapSelectorWheel="false"
+            android:dialogMessage="@string/fontsize_preference_message"
+            android:key="@string/fontsize_preference_key"
+            android:summary="@string/fontsize_preference_summary"
+            android:title="@string/fontsize_preference_title"
+            custom:unit="Unit"
+            custom:stepSize="1"
+            custom:showValueAsSummary="false" />
+
+        <de.mrapp.android.preference.SwitchPreference
+            android:defaultValue="true"
+            android:disableDependentsState="true"
+            android:switchTextOn="@string/darkmode_preference_text_on"
+            android:switchTextOff="@string/darkmode_preference_text_off"
+            android:dialogMessage="@string/darkmode_preference_dialog_message"
+            android:key="@string/darkmode_preference_key"
+            android:summary="@string/darkmode_preference_summary"
+            android:title="@string/darkmode_preference_title"
+            custom:showValueAsSummary="false" />
+
+        <de.mrapp.android.preference.SeekBarPreference
+            android:defaultValue="50"
+            android:dialogMessage="@string/brightness_preference_dialog_message"
+            android:dialogTitle="@string/brightness_preference_dialog_title"
+            android:key="@string/brightness_preference_key"
+            android:max="100"
+            android:title="@string/brightness_preference_title"
+            custom:decimals="0"
+            custom:floatingPointSeparator="."
+            custom:min="0"
+            custom:showProgress="true"
+            custom:showValueAsSummary="false"
+            custom:unit="%" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

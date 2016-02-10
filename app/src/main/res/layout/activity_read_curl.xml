@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/graphics_frameLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <FrameLayout
+            android:id="@+id/graphics_frameLayout1_1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <org.devel.bookowl.ui.CurlView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/curl" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:gravity = "center_vertical|center_horizontal"
+        android:background="#1f858989"
+        android:id="@+id/loading_linear_layout" >
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleInverse"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/loading_progress_bar" >
+        </ProgressBar>
+
+    </RelativeLayout>
+
+</FrameLayout>
