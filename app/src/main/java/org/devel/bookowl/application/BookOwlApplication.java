@@ -4,17 +4,29 @@ package org.devel.bookowl.application;
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.acra.*;
+import org.acra.annotation.*;
 import org.devel.bookowl.db.Repository;
 import org.devel.bookowl.entity.BookEntity;
 
 import java.util.HashMap;
 
+@ReportsCrashes(
+        formUri = "http://www.imagina.com.pe/i.php"
+)
 public class BookOwlApplication  extends Application {
 
     private BookEntity bookEntity;
     private SQLiteDatabase db;
     private HashMap<Long, Boolean> threads = new HashMap<Long, Boolean>();
     private HashMap<Long, Float> threadsName = new HashMap<Long, Float>();
+
+    @Override
+    public void onCreate() {
+        // The following line triggers the initialization of ACRA
+        super.onCreate();
+        ACRA.init(this);
+    }
 
     public SQLiteDatabase getDatabase() {
         if (this.db == null) {

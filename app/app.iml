@@ -86,8 +86,8 @@
     <orderEntry type="library" exported="" name="epublib-core-3.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.1.0" level="project" />
     <orderEntry type="library" exported="" name="roboguice-3.0.1" level="project" />
-    <orderEntry type="library" exported="" name="jdom-1.1" level="project" />
     <orderEntry type="library" exported="" name="MMSDK" level="project" />
+    <orderEntry type="library" exported="" name="jdom-1.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-6.5.87" level="project" />
     <orderEntry type="library" exported="" name="htmlcleaner-2.2" level="project" />
     <orderEntry type="library" exported="" name="commons-collections-3.2.1" level="project" />
@@ -98,6 +98,7 @@
     <orderEntry type="library" exported="" name="support-v4-23.1.0" level="project" />
     <orderEntry type="library" exported="" name="slf4j-android-1.6.1-RC1" level="project" />
     <orderEntry type="library" exported="" name="htmlspanner-0.5-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="acra-4.6.2" level="project" />
     <orderEntry type="library" exported="" name="velocity-1.7" level="project" />
     <orderEntry type="library" exported="" name="cssparser-1.5" level="project" />
     <orderEntry type="module" module-name="androidmaterialpreferencev20" exported="" />

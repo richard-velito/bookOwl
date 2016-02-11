@@ -120,7 +120,6 @@ public class HomeFragment extends ListFragment {
 
             if (convertView == null) {
 
-                Log.e(TAG, "c");
                 convertView = LayoutInflater.from(getContext()).inflate(resource,
                         null);
 

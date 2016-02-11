@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:fontFamily="sans-serif"
-        android:drawableLeft="@drawable/bullet"
+        android:drawableLeft="@drawable/ic_add_black_24dp"
         style="@style/lsRelLayoutLblFileName"
         android:id="@+id/lblFileName" />
 

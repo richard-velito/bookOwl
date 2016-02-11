@@ -8,9 +8,9 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-    <string name="nav_item_home">MIS LIBROS</string>
-    <string name="nav_item_import">IMPORTAR LIBROS</string>
-    <string name="nav_item_settings">AJUSTES</string>
+    <string name="nav_item_home">Books</string>
+    <string name="nav_item_import">Import</string>
+    <string name="nav_item_settings">Settings</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
@@ -19,18 +19,18 @@
         <item>@string/nav_item_settings</item>
     </string-array>
 
-    <string name="title_settings">Ajustes</string>
-    <string name="title_import">Importar Libros</string>
-    <string name="title_home">Mis Libros</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_import">Import</string>
+    <string name="title_home">Books</string>
 
-    <string name="read_preferences">Ajustes</string>
+    <string name="read_preferences">Settings</string>
 
-    <string name="dialog_toc_title">Tabla de Contenido</string>
+    <string name="dialog_toc_title">Table of Content</string>
 
-    <string name="dialog_autoscan_title">No hay libros en su libreria.</string>
+    <string name="dialog_autoscan_title">You dont have books.</string>
     <string name="dialog_autoscan_message">Buscar libros en el dispositivo?</string>
 
-    <string name="empty_bookshelf">SU LIBRERIA ESTA VACIA.</string>
+    <string name="empty_bookshelf">Empty Library.</string>
 
 
     <string name="folder_name">BOOKS</string>
@@ -54,6 +54,7 @@
     <string name="brightness_preference_title">Brightness</string>
 
     <string name="success_adding_book">Adding book : </string>
+    <string name="repeat_book">The book is in Library.</string>
     <string name="error_adding_book">Error adding book</string>
 
 </resources>

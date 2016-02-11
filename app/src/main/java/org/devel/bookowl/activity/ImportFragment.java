@@ -102,12 +102,13 @@ public class ImportFragment extends ListFragment {
                     toastMsg = getResources().getString(R.string.success_adding_book) +
                             book.getTitle();
                 } else {
-                    toastMsg = getResources().getString(R.string.error_adding_book);
+                    toastMsg = getResources().getString(R.string.repeat_book);
                 }
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+
+            toastMsg = getResources().getString(R.string.error_adding_book);
             Log.e(TAG, e.getMessage());
         }
 

@@ -30,7 +30,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:recyclerview-v7:23.1.0'
     compile 'com.google.android.gms:play-services:6.5.87'
-
     compile (
             [group: 'org.slf4j', name: 'slf4j-android', version: '1.6.1-RC1'],
 
@@ -38,6 +37,8 @@ dependencies {
 
     compile 'org.roboguice:roboguice:3.+'
     provided 'org.roboguice:roboblender:3.+'
+
+    compile 'ch.acra:acra:4.6.2'
 
     compile( 'net.nightwhistler.htmlspanner:htmlspanner:0.5-SNAPSHOT') {
         exclude module: 'ant'

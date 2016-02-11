@@ -20,7 +20,7 @@ public class BookEntity implements Serializable {
     private String author;
     private String title;
     private String path;
-    private String same;
+    private long pages;
     private float fontSize;
     private long updated;
     private long current;
@@ -83,14 +83,6 @@ public class BookEntity implements Serializable {
         this.fontSize = fontSize;
     }
 
-    public String getSame() {
-        return same;
-    }
-
-    public void setSame(String same) {
-        this.same = same;
-    }
-
     public long getCurrent() {
         return current;
     }
@@ -105,6 +97,14 @@ public class BookEntity implements Serializable {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public long getPages() {
+        return pages;
+    }
+
+    public void setPages(long pages) {
+        this.pages = pages;
     }
 
     public List<CompiledRule> getCSSRules( String href ) {

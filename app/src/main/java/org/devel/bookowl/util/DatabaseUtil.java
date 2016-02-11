@@ -121,7 +121,7 @@ public class DatabaseUtil {
 
             // get book info
             String query =
-                    "SELECT id, name, author, title, path, updated, fontsize, current  FROM " +
+                    "SELECT id, name, author, title, path, updated, fontsize, current, total  FROM " +
                             BookEntity.TABLE_NAME + " WHERE id = ?";
             Cursor c = db.rawQuery(query, new String[]{id});
             if (c.moveToFirst()) {
@@ -138,6 +138,7 @@ public class DatabaseUtil {
                         book.setFontSize(0);
                     }
                     book.setCurrent(c.getLong(7));
+                    book.setPages(c.getLong(8));
 
                 } while(c.moveToNext());
             }
@@ -225,7 +226,6 @@ public class DatabaseUtil {
                         book.setAuthor(c.getString(2));
                         book.setTitle(c.getString(3));
                         book.setPath(c.getString(4));
-                        book.setSame("book");//TODO: fix me!
                     books.add(book);
                 } while(c.moveToNext());
             }

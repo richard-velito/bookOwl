@@ -230,7 +230,17 @@ public class ReadCurlActivity extends AppCompatActivity {
         @Override
         public int getPageCount() {
 
-            return 5000;
+            if (!app.getThreadState(bookEntity.getId()) &&
+                    ((bookEntity.isUpdated()!=0))) {
+
+                if (bookEntity.getPages()<=1) {
+                    return 5000;
+                } else {
+                    return (int)bookEntity.getPages();
+                }
+            } else {
+                return 5000;
+            }
         }
 
         private Bitmap loadBitmap(int width, int height, int index) {
@@ -324,6 +334,10 @@ public class ReadCurlActivity extends AppCompatActivity {
 
                                     // book finish the update
                                     app.updateThread(bookEntity.getId(), false);
+
+                                    bookEntity.setPages(i);
+                                    DatabaseUtil.updateBook(app.getDatabase(),"total", i,
+                                            String.valueOf(bookEntity.getId()));
 
                                     Log.e(TAG,
                                             "End loading :" + bookEntity.getTitle());
