@@ -19,9 +19,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.millennialmedia.android.MMAd;
 import com.millennialmedia.android.MMInterstitial;
@@ -30,7 +31,6 @@ import com.millennialmedia.android.MMSDK;
 import com.millennialmedia.android.RequestListener;
 
 import net.nightwhistler.htmlspanner.HtmlSpanner;
-import net.nightwhistler.htmlspanner.handlers.TableHandler;
 
 import org.devel.bookowl.R;
 import org.devel.bookowl.activity.dialog.TableOfContentDialog;
@@ -70,7 +70,8 @@ public class ReadCurlActivity extends AppCompatActivity {
     private int position = 0;
 
     private CurlView mCurlView;
-    private RelativeLayout mLinearLayout;
+    private RelativeLayout mRelativeLayout;
+    private FrameLayout mFrameLayout;
     private Toolbar mToolbar;
 
     @Override
@@ -91,7 +92,8 @@ public class ReadCurlActivity extends AppCompatActivity {
 
         // curlView
         mCurlView = (CurlView) findViewById(R.id.curl);
-        mLinearLayout = (RelativeLayout) findViewById(R.id.loading_linear_layout);
+        mRelativeLayout = (RelativeLayout) findViewById(R.id.loading_relative_layout);
+        mFrameLayout = (FrameLayout) findViewById(R.id.graphics_frameLayout1_1);
 
         app = (BookOwlApplication) getApplication();
 
@@ -260,8 +262,10 @@ public class ReadCurlActivity extends AppCompatActivity {
                 bookEntity.setFontSize(currentAppFontSize);
 
                 // update in db
-                DatabaseUtil.updateBook(app.getDatabase(), "updated", 0,
+                DatabaseUtil.updateBook(app.getDatabase(), "updated",
+                        0,
                         String.valueOf(bookEntity.getId()));
+
                 DatabaseUtil.updateBook(app.getDatabase(),"fontsize",
                         String.valueOf(currentAppFontSize),
                         String.valueOf(bookEntity.getId()));
@@ -394,7 +398,9 @@ public class ReadCurlActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mLinearLayout.setVisibility(View.VISIBLE);
+                        mRelativeLayout.setVisibility(View.VISIBLE);
+                        mFrameLayout.setVisibility(View.GONE);
+
                     }
                 });
 
@@ -439,7 +445,8 @@ public class ReadCurlActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
 
-                                        mLinearLayout.setVisibility(View.GONE);
+                                        mRelativeLayout.setVisibility(View.GONE);
+                                        mFrameLayout.setVisibility(View.VISIBLE);
                                     }
                                 });
 

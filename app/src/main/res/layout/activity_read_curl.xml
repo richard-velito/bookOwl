@@ -9,7 +9,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/loading_linear_layout">
 
         <include
             android:id="@+id/toolbar"
@@ -37,7 +38,7 @@
         android:layout_centerInParent="true"
         android:gravity = "center_vertical|center_horizontal"
         android:background="#1f858989"
-        android:id="@+id/loading_linear_layout" >
+        android:id="@+id/loading_relative_layout" >
 
         <ProgressBar
             style="?android:attr/progressBarStyleInverse"
