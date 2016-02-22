@@ -57,4 +57,8 @@
     <string name="repeat_book">The book is in Library.</string>
     <string name="error_adding_book">Error adding book</string>
 
+    <string name="loading_book">Loading the book.</string>
+
+
+
 </resources>

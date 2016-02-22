@@ -258,17 +258,17 @@ public class ReadCurlActivity extends AppCompatActivity {
             if ( (bookEntity.getFontSize()!=currentAppFontSize) ) {
 
                 // update in memory
+                bookEntity.setPages(0);
                 bookEntity.setUpdated(0);
                 bookEntity.setFontSize(currentAppFontSize);
 
                 // update in db
                 DatabaseUtil.updateBook(app.getDatabase(), "updated",
-                        0,
-                        String.valueOf(bookEntity.getId()));
-
+                        0, String.valueOf(bookEntity.getId()));
                 DatabaseUtil.updateBook(app.getDatabase(),"fontsize",
-                        String.valueOf(currentAppFontSize),
-                        String.valueOf(bookEntity.getId()));
+                        String.valueOf(currentAppFontSize), String.valueOf(bookEntity.getId()));
+                DatabaseUtil.updateBook(app.getDatabase(), "total",
+                        0, String.valueOf(bookEntity.getId()));
 
                 // start thread
                 app.updateThreadName(bookEntity.getId(), currentAppFontSize);
@@ -332,16 +332,15 @@ public class ReadCurlActivity extends AppCompatActivity {
 
                                     app.getBookEntity().setUpdated(1);
                                     bookEntity.setUpdated(1);
+                                    bookEntity.setPages(i);
 
                                     DatabaseUtil.updateBook(app.getDatabase(),"updated", 1,
+                                            String.valueOf(bookEntity.getId()));
+                                    DatabaseUtil.updateBook(app.getDatabase(),"total", i,
                                             String.valueOf(bookEntity.getId()));
 
                                     // book finish the update
                                     app.updateThread(bookEntity.getId(), false);
-
-                                    bookEntity.setPages(i);
-                                    DatabaseUtil.updateBook(app.getDatabase(),"total", i,
-                                            String.valueOf(bookEntity.getId()));
 
                                     Log.e(TAG,
                                             "End loading :" + bookEntity.getTitle());
@@ -401,6 +400,8 @@ public class ReadCurlActivity extends AppCompatActivity {
                         mRelativeLayout.setVisibility(View.VISIBLE);
                         mFrameLayout.setVisibility(View.GONE);
 
+                        Toast.makeText(ReadCurlActivity.this, getResources().getString(
+                            R.string.loading_book), Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -410,8 +411,10 @@ public class ReadCurlActivity extends AppCompatActivity {
 
                         if ( (spannedPageContent.length()==0) ) {
 
+                            int index3 = index2;
+
                             PageEntity page = DatabaseUtil.getPage(app.getDatabase(),
-                                    String.valueOf(index2), String.valueOf(bookEntity.getId()));
+                                    String.valueOf(index3), String.valueOf(bookEntity.getId()));
 
                             if ((page != null) && (page.getChapter_id() != null)) {
 
@@ -437,6 +440,19 @@ public class ReadCurlActivity extends AppCompatActivity {
                                     spannedPageContent = PagerUtil.content((int) page.getStart_offset(),
                                             (int) page.getEnd_offset());
                                 }
+                            } else {
+
+                                if ( (bookEntity.getPages()>0) &&
+                                        (bookEntity.getPages()<index3) ) {
+
+                                    page = DatabaseUtil.getPage(app.getDatabase(),
+                                            String.valueOf(1), String.valueOf(bookEntity.getId()));
+                                    spannedPageContent = PagerUtil.content((int) page.getStart_offset(),
+                                            (int) page.getEnd_offset());
+
+                                    index3 = 1;
+                                    Log.e(TAG, "GO TO 1.");
+                                }
                             }
 
                             if ( (spannedPageContent.length()!=0) ) {
@@ -450,8 +466,7 @@ public class ReadCurlActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                //Log.e(TAG, "Found " + spannedPageContent);
-                                mCurlView.setCurrentIndex(index2);
+                                mCurlView.setCurrentIndex(index3);
 
                             } else {
 
@@ -464,6 +479,7 @@ public class ReadCurlActivity extends AppCompatActivity {
             }
 
             // SAVE current page
+            Log.e(TAG, "Continue...." +  index);
             DatabaseUtil.updateBook(app.getDatabase(),"current", index,
                     String.valueOf(bookEntity.getId()));
 
