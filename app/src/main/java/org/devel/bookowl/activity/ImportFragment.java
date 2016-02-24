@@ -47,6 +47,13 @@ public class ImportFragment extends ListFragment {
                 new File(Environment.getExternalStorageDirectory() + ""),
                 getResources().getString(R.string.folder_name));
 
+        if (files.size()<1) {
+            // internal storage
+            files.addAll(FileExplorerUtil.scanFile(
+                    new File(Environment.getRootDirectory() + ""),
+                    getResources().getString(R.string.folder_name)));
+
+        }
         if ( files!=null ) {
 
             adapter = new FileExplorerListAdapter(getActivity(), files);

@@ -261,7 +261,6 @@ public class ReadCurlActivity extends AppCompatActivity {
                     R.string.fontsize_preference_key), 25);
 
             final int index2 = index;
-            boolean f = true;
 
             if ( (bookEntity.getFontSize()!=currentAppFontSize) ) {
 
@@ -278,9 +277,6 @@ public class ReadCurlActivity extends AppCompatActivity {
                 DatabaseUtil.updateBook(app.getDatabase(), "total",
                         0, String.valueOf(bookEntity.getId()));
 
-                // start thread
-                app.updateThreadName(bookEntity.getId(), currentAppFontSize);
-
                 if (app.getThreadState(bookEntity.getId())) {
                     app.updateThread(bookEntity.getId(), false);
                 }
@@ -290,6 +286,8 @@ public class ReadCurlActivity extends AppCompatActivity {
 
                 // book is updating .....
                 app.updateThread(bookEntity.getId(), true);
+                // start thread - for the thread
+                app.updateThreadName(bookEntity.getId(), currentAppFontSize);
 
                 /**
                  * BEGIN : runner for parse page
@@ -339,6 +337,7 @@ public class ReadCurlActivity extends AppCompatActivity {
                                         currentAppFontSize)) {
 
                                     app.getBookEntity().setUpdated(1);
+
                                     bookEntity.setUpdated(1);
                                     bookEntity.setPages(i);
 
@@ -418,70 +417,40 @@ public class ReadCurlActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        if ( (spannedPageContent.length()==0) ) {
+                        PageEntity page = DatabaseUtil.getPage(app.getDatabase(),
+                                String.valueOf(index2), String.valueOf(bookEntity.getId()));
 
-                            int index3 = index2;
-                            PageEntity page = DatabaseUtil.getPage(app.getDatabase(),
-                                    String.valueOf(index2), String.valueOf(bookEntity.getId()));
+                        if ((page != null) && (page.getChapter_id() != null)) {
 
-                            if ((page != null) && (page.getChapter_id() != null)) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
 
-                                if (currentChapter != (int) page.getChapter()) {
-
-                                    currentChapter = (int) page.getChapter();
-
-                                    try {
-
-                                        Resource res = app.getBookEntity().getBook().getSpine().
-                                                getResource(currentChapter);
-
-                                        PagerUtil.text = spanner.fromHtml(res.getReader());
-
-                                        spannedPageContent = PagerUtil.content((int) page.getStart_offset(),
-                                                (int) page.getEnd_offset());
-                                    } catch (Exception e) {
-                                        Log.e(TAG, e.getMessage());
-                                    }
-
-                                } else {
-
-                                    spannedPageContent = PagerUtil.content((int) page.getStart_offset(),
-                                            (int) page.getEnd_offset());
+                                    mRelativeLayout.setVisibility(View.GONE);
+                                    mFrameLayout.setVisibility(View.VISIBLE);
                                 }
-                            } else {
+                            });
 
-                                if ( (bookEntity.getPages()>0) &&
-                                        (bookEntity.getPages()<index2) ) {
+                            // found - set to index2
+                            mCurlView.setCurrentIndex(index2);
 
-                                    page = DatabaseUtil.getPage(app.getDatabase(),
-                                            String.valueOf(1), String.valueOf(bookEntity.getId()));
-                                    spannedPageContent = PagerUtil.content((int) page.getStart_offset(),
-                                            (int) page.getEnd_offset());
+                        } else if ( (bookEntity.getPages()>0) && (bookEntity.getPages()<index2) ) {
 
-                                    index3 = 1;
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
 
-                                    Log.e(TAG, "Get 1.");
-                                    mCurlView.setCurrentIndex(1);
+                                    mRelativeLayout.setVisibility(View.GONE);
+                                    mFrameLayout.setVisibility(View.VISIBLE);
                                 }
-                            }
+                            });
 
-                            if ( (spannedPageContent.length()!=0) ) {
+                            // not found - set to 1
+                            mCurlView.setCurrentIndex(1);
 
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
+                        } else {
 
-                                        mRelativeLayout.setVisibility(View.GONE);
-                                        mFrameLayout.setVisibility(View.VISIBLE);
-                                    }
-                                });
-
-                                mCurlView.setCurrentIndex(index3);
-
-                            } else {
-
-                                mLoaderHandler.postDelayed(this, 1000);
-                            }
+                            mLoaderHandler.postDelayed(this, 1000);
                         }
                     }
                 };
