@@ -40,26 +40,30 @@ public class FileExplorerUtil {
             };
 
             String[] fList = path.list(filter);
-            for (int i = 0; i < fList.length; i++) {
 
-                // Convert into file path
-                File sel = new File(path, fList[i]);
+            if (fList != null) {
 
-                // Set drawables
+                for (int i = 0; i < fList.length; i++) {
 
-                if (sel.isDirectory()) {
+                    // Convert into file path
+                    File sel = new File(path, fList[i]);
 
-                    // ignore app folder
-                    if (!ignorePath.equals(sel.getAbsolutePath()))
-                        files.addAll( scanFile(sel, ignore) );
+                    // Set drawables
 
-                } else {
-                    //TODO: add file
-                    BookFile item = new BookFile();
+                    if (sel.isDirectory()) {
+
+                        // ignore app folder
+                        if (!ignorePath.equals(sel.getAbsolutePath()))
+                            files.addAll(scanFile(sel, ignore));
+
+                    } else {
+                        //TODO: add file
+                        BookFile item = new BookFile();
                         item.setFilename(sel.getName());
                         item.setFilepath(sel.getAbsolutePath());
-                    files.add(item);
+                        files.add(item);
 
+                    }
                 }
             }
 

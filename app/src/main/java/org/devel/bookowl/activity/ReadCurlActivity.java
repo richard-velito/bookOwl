@@ -209,6 +209,13 @@ public class ReadCurlActivity extends AppCompatActivity {
 
         UiUtil.loadSettings(getApplicationContext(), this);
         super.onResume();
+        mCurlView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mCurlView.onPause();
     }
 
     @Override
@@ -254,6 +261,7 @@ public class ReadCurlActivity extends AppCompatActivity {
                     R.string.fontsize_preference_key), 25);
 
             final int index2 = index;
+            boolean f = true;
 
             if ( (bookEntity.getFontSize()!=currentAppFontSize) ) {
 
@@ -313,7 +321,7 @@ public class ReadCurlActivity extends AppCompatActivity {
                                         spanner.fromHtml(bookSection.getResource().getReader()),
                                         tv, i);
 
-                                    i = i+pages.size();
+                                    i = i + pages.size();
 
                                     if ((app.getThreadName(bookEntity.getId()) !=
                                             currentAppFontSize)) {
@@ -397,6 +405,7 @@ public class ReadCurlActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         mRelativeLayout.setVisibility(View.VISIBLE);
                         mFrameLayout.setVisibility(View.GONE);
 
@@ -412,9 +421,8 @@ public class ReadCurlActivity extends AppCompatActivity {
                         if ( (spannedPageContent.length()==0) ) {
 
                             int index3 = index2;
-
                             PageEntity page = DatabaseUtil.getPage(app.getDatabase(),
-                                    String.valueOf(index3), String.valueOf(bookEntity.getId()));
+                                    String.valueOf(index2), String.valueOf(bookEntity.getId()));
 
                             if ((page != null) && (page.getChapter_id() != null)) {
 
@@ -443,7 +451,7 @@ public class ReadCurlActivity extends AppCompatActivity {
                             } else {
 
                                 if ( (bookEntity.getPages()>0) &&
-                                        (bookEntity.getPages()<index3) ) {
+                                        (bookEntity.getPages()<index2) ) {
 
                                     page = DatabaseUtil.getPage(app.getDatabase(),
                                             String.valueOf(1), String.valueOf(bookEntity.getId()));
@@ -451,7 +459,9 @@ public class ReadCurlActivity extends AppCompatActivity {
                                             (int) page.getEnd_offset());
 
                                     index3 = 1;
-                                    Log.e(TAG, "GO TO 1.");
+
+                                    Log.e(TAG, "Get 1.");
+                                    mCurlView.setCurrentIndex(1);
                                 }
                             }
 
